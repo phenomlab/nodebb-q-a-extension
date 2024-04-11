@@ -1,0 +1,111 @@
+<head>
+  <style>
+    span.topicUsername {
+      text-transform: capitalize;
+    }
+  </style>
+</head>
+{{{ if isSolved }}}
+<div id="resolved">
+  <div class="resolved-wrapper">
+    <h5 class="resolved-header">Did this solution help you?</h5>
+    <div class="resolved-body">
+      <div class="resolved-message">Did you find the <a href="" id="goToSolution">suggested solution</a> useful? Why not <a href="https://www.buymeacoffee.com/phenomlab" target="_blank">buy me a coffee</a>? It's a nice gesture, and a great way to show your appreciation <span class="heart">💗</span>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<script>
+  $(document).ready(function() {
+    $("#resolved").insertAfter('[component="post"]:last-of-type');
+
+    // Logic to add IDs to elements with class 'isSolved' when the document is ready
+    $('.isSolved').each(function(index) {
+      $(this).attr('id', 'solvedElement_' + index);
+    });
+
+    // Call scrollToId() after assigning IDs to .isSolved elements
+    scrollToId('solvedElement_0', -250); // Change the offset value as needed
+
+    // Click function for #test
+    $("#goToSolution").click(function(event) {
+      event.preventDefault(); // Prevent default link behavior
+
+      // Wait for DOM to be ready before adding IDs and scrolling
+      $(function() {
+        // Logic to add IDs to elements with class 'isSolved'
+        $('.isSolved').each(function(index) {
+          $(this).attr('id', 'solvedElement_' + index);
+        });
+
+        // Call scrollToId() after assigning IDs to .isSolved elements
+        scrollToId('solvedElement_0', -250); // Change the offset value as needed
+      });
+
+      // Trigger the click event on .pagetop
+      $('.pagetop').trigger('click');
+    });
+  });
+
+  // Function to scroll to element with specific ID
+  function scrollToId(id, offset) {
+    var element = $('#' + id);
+    if (element.length > 0) {
+      var position = element.offset().top + (offset || 0); // Apply the offset
+      $('html, body').animate({ scrollTop: position }, 'slow');
+    }
+  }
+</script>
+
+{{{ end }}} {{{ if (uid == loggedInUser.uid) }}} {{{ if isQuestion }}} {{{ if !isSolved }}} {{{ if !unreplied }}} <div id="unresolved">
+  <div class="unresolved-wrapper">
+    <h5 class="unresolved-header">Did you get the answer you needed?</h5>
+    <div class="unresolved-body">
+      <div class="unresolved-message">Hey <span class="topicUsername">
+          <span class="username"></span>
+        </span>. It looks as though there have been one or more replies to your original post. <br>If a provided answer resolved an issue for you, Could you please take a moment, and select "Mark as correct" in the corresponding response? <br>
+        <br>By doing this, it means that original posters help the rest of the community find answers to previously asked questions by identifying the correct answer.
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<script>
+  if (!window.jQuery) {
+    window.addEventListener('load', function() {
+      $(document).ready(function() {
+        $("#unresolved").insertAfter('[component="post"]:last-of-type');
+      })
+    })
+  } else {
+    $(document).ready(function() {
+      $("#unresolved").insertAfter('[component="post"]:last-of-type');
+    })
+  }
+</script>
+{{{ end }}} {{{ end }}} {{{ end }}} {{{ end }}} {{{ if unreplied }}} {{{ if !isSolved }}} {{{ if isQuestion }}} {{{ if (uid == loggedInUser.uid) }}} <div id="unreplied">
+  <div class="unreplied-wrapper">
+    <h5 class="unreplied-header">No response yet</h5>
+    <div class="unreplied-body">
+      <div class="unreplied-message">Hey <span class="topicUsername">
+          <span class="username"></span>
+        </span>. It looks as though there are no responses yet. Don't panic though, as one will be provided as soon as possible. <br>Please do not "bump" posts. </div>
+    </div>
+  </div>
+</div>
+<br>
+<script>
+  if (!window.jQuery) {
+    window.addEventListener('load', function() {
+      $(document).ready(function() {
+        $("#unreplied").insertBefore('[component="post"]:last-of-type');
+      })
+    })
+  } else {
+    $(document).ready(function() {
+      $("#unreplied").insertBefore('[component="post"]:last-of-type');
+    })
+  }
+</script>
+{{{ end }}} {{{ end }}} {{{ end }}} {{{ end }}}
