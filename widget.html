@@ -99,12 +99,12 @@
   if (!window.jQuery) {
     window.addEventListener('load', function() {
       $(document).ready(function() {
-        $("#unreplied").insertBefore('[component="post"]:last-of-type');
+        $("#unreplied").insertAfter('[component="post"]:last-of-type');
       })
     })
   } else {
     $(document).ready(function() {
-      $("#unreplied").insertBefore('[component="post"]:last-of-type');
+      $("#unreplied").insertAfter('[component="post"]:last-of-type');
     })
   }
 </script>
