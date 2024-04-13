@@ -17,7 +17,9 @@
 </div>
 <br>
 <script>
-  $(document).ready(function() {
+    if (!window.jQuery) {
+    window.addEventListener('load', function() {
+      $(document).ready(function() {
     $("#resolved").insertAfter('[component="post"]:last-of-type');
 
     // Logic to add IDs to elements with class 'isSolved' when the document is ready
@@ -47,6 +49,40 @@
       $('.pagetop').trigger('click');
     });
   });
+    })
+  } else {
+    $(document).ready(function() {
+    $("#resolved").insertAfter('[component="post"]:last-of-type');
+
+    // Logic to add IDs to elements with class 'isSolved' when the document is ready
+    $('.isSolved').each(function(index) {
+      $(this).attr('id', 'solvedElement_' + index);
+    });
+
+    // Call scrollToId() after assigning IDs to .isSolved elements
+    scrollToId('solvedElement_0', -250); // Change the offset value as needed
+
+    // Click function for #test
+    $("#goToSolution").click(function(event) {
+      event.preventDefault(); // Prevent default link behavior
+
+      // Wait for DOM to be ready before adding IDs and scrolling
+      $(function() {
+        // Logic to add IDs to elements with class 'isSolved'
+        $('.isSolved').each(function(index) {
+          $(this).attr('id', 'solvedElement_' + index);
+        });
+
+        // Call scrollToId() after assigning IDs to .isSolved elements
+        scrollToId('solvedElement_0', -250); // Change the offset value as needed
+      });
+
+      // Trigger the click event on .pagetop
+      $('.pagetop').trigger('click');
+    });
+  });
+  }
+ 
 
   // Function to scroll to element with specific ID
   function scrollToId(id, offset) {
